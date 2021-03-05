@@ -1,0 +1,13 @@
+{
+  "collectionName": "components_user_object_doctors",
+  "info": {
+    "name": "doctor",
+    "icon": "apple-alt"
+  },
+  "options": {},
+  "attributes": {
+    "doctor": {
+      "model": "doctor"
+    }
+  }
+}

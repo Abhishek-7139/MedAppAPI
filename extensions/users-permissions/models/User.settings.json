@@ -59,13 +59,6 @@
       "plugin": "users-permissions",
       "configurable": false
     },
-    "userObject": {
-      "type": "dynamiczone",
-      "components": [
-        "user-object-link.doctor-details",
-        "user-object-link.patient-details"
-      ]
-    },
     "userType": {
       "type": "enumeration",
       "enum": [
@@ -74,6 +67,13 @@
       ],
       "required": true,
       "default": "Doctor"
+    },
+    "userObject": {
+      "type": "dynamiczone",
+      "components": [
+        "user-object.patient",
+        "user-object.doctor"
+      ]
     }
   }
 }
