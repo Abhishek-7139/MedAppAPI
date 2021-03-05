@@ -19,10 +19,6 @@
       "type": "string",
       "required": true
     },
-    "patientID": {
-      "type": "uid",
-      "required": true
-    },
     "email": {
       "type": "email",
       "required": true
@@ -38,20 +34,19 @@
       "type": "integer",
       "min": 1
     },
-    "ailments": {
-      "type": "text",
-      "required": true
-    },
-    "medicines": {
-      "type": "text",
+    "department": {
+      "type": "enumeration",
+      "enum": [
+        "General-Medicine",
+        "Gynecology",
+        "Cardiology",
+        "Orthopedic",
+        "Pediatrics",
+        "Oncology",
+        "Neurology"
+      ],
       "required": true,
-      "default": "None"
-    },
-    "enrolledDate": {
-      "type": "datetime"
-    },
-    "lastSession": {
-      "type": "datetime"
+      "default": "General-Medicine"
     },
     "reports": {
       "via": "doctor",
