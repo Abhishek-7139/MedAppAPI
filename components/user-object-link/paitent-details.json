@@ -1,0 +1,13 @@
+{
+  "collectionName": "components_user_object_link_paitent_details",
+  "info": {
+    "name": "paitentDetails",
+    "icon": "archive"
+  },
+  "options": {},
+  "attributes": {
+    "patient": {
+      "model": "patient"
+    }
+  }
+}

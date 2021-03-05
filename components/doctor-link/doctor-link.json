@@ -1,0 +1,13 @@
+{
+  "collectionName": "components_doctor_link_doctor_links",
+  "info": {
+    "name": "doctorLink",
+    "icon": "ambulance"
+  },
+  "options": {},
+  "attributes": {
+    "patientObject": {
+      "model": "doctor"
+    }
+  }
+}

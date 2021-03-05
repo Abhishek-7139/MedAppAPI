@@ -1,0 +1,63 @@
+{
+  "kind": "collectionType",
+  "collectionName": "patients",
+  "info": {
+    "name": "Patient",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "firstName": {
+      "type": "string",
+      "required": true
+    },
+    "lastName": {
+      "type": "string",
+      "required": true
+    },
+    "phoneNumber": {
+      "type": "string",
+      "minLength": 10,
+      "maxLength": 10
+    },
+    "email": {
+      "type": "email",
+      "required": true
+    },
+    "age": {
+      "type": "integer",
+      "min": 0,
+      "max": 200,
+      "required": true
+    },
+    "ailments": {
+      "type": "text",
+      "required": true
+    },
+    "medicines": {
+      "type": "text",
+      "required": true,
+      "default": "None"
+    },
+    "enrolledDate": {
+      "type": "datetime",
+      "required": true
+    },
+    "lastSession": {
+      "type": "datetime"
+    },
+    "reports": {
+      "collection": "record",
+      "via": "patient"
+    },
+    "doctors": {
+      "collection": "doctor",
+      "via": "patients",
+      "dominant": true
+    }
+  }
+}

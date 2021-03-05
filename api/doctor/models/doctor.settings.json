@@ -1,0 +1,65 @@
+{
+  "kind": "collectionType",
+  "collectionName": "doctors",
+  "info": {
+    "name": "Doctor",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": false
+  },
+  "attributes": {
+    "firstName": {
+      "type": "string",
+      "required": true
+    },
+    "lastName": {
+      "type": "string",
+      "required": true
+    },
+    "patientID": {
+      "type": "uid",
+      "required": true
+    },
+    "email": {
+      "type": "email",
+      "required": true
+    },
+    "address": {
+      "type": "text"
+    },
+    "phoneNumber": {
+      "type": "string",
+      "maxLength": 10
+    },
+    "age": {
+      "type": "integer",
+      "min": 1
+    },
+    "ailments": {
+      "type": "text",
+      "required": true
+    },
+    "medicines": {
+      "type": "text",
+      "required": true,
+      "default": "None"
+    },
+    "enrolledDate": {
+      "type": "datetime"
+    },
+    "lastSession": {
+      "type": "datetime"
+    },
+    "reports": {
+      "via": "doctor",
+      "collection": "record"
+    },
+    "patients": {
+      "via": "doctors",
+      "collection": "patient"
+    }
+  }
+}

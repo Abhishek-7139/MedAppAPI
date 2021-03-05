@@ -1,0 +1,31 @@
+{
+  "kind": "collectionType",
+  "collectionName": "records",
+  "info": {
+    "name": "Record",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "description": {
+      "type": "text",
+      "required": true
+    },
+    "date": {
+      "type": "datetime",
+      "required": true
+    },
+    "doctor": {
+      "model": "doctor",
+      "via": "reports"
+    },
+    "patient": {
+      "via": "reports",
+      "model": "patient"
+    }
+  }
+}
