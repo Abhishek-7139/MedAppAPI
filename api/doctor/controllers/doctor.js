@@ -12,12 +12,12 @@ module.exports = {
     try {
       const user = ctx.state.user;
       if (user && user.userType === "Doctor") {
-        //send email to this patient.
+        //send email to this
         const patientID = ctx.request.body.patientID;
         // Used when generating any kind of Access Token
-        const twilioAccountSid = "SKc3525e2d755ab703560327f21d09286f";
-        const twilioApiKey = "";
-        const twilioApiSecret = "WkwzdeKhTNIDEmRE1DkOIfEgeCwTkXJs";
+        const twilioAccountSid = process.env.TWILIO_ACCOUNT_SID;
+        const twilioApiKey = process.env.TWILIO_API_KEY;
+        const twilioApiSecret = process.env.TWILIO_API_SECRET;
 
         // Create an access token which we will sign and return to the client,
         // containing the grant we just created

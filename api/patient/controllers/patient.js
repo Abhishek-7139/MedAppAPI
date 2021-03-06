@@ -10,9 +10,9 @@ module.exports = {
     try {
       const room = ctx.request.body.room;
       // Used when generating any kind of Access Token
-      const twilioAccountSid = "SKc3525e2d755ab703560327f21d09286f";
-      const twilioApiKey = "eELk8yELWkTLBBhvFpc37U9jRTK1hwxxNs89292Y";
-      const twilioApiSecret = "WkwzdeKhTNIDEmRE1DkOIfEgeCwTkXJs";
+      const twilioAccountSid = process.env.TWILIO_ACCOUNT_SID;
+      const twilioApiKey = process.env.TWILIO_API_KEY;
+      const twilioApiSecret = process.env.TWILIO_API_SECRET;
 
       // Create an access token which we will sign and return to the client,
       // containing the grant we just created
@@ -21,7 +21,7 @@ module.exports = {
         twilioApiKey,
         twilioApiSecret
       );
-      token.identity = user.username;
+      token.identity = "Patient";
 
       // Create a Video grant which enables a client to use Video
       // and limits access to the specified Room
