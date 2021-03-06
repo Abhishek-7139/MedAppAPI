@@ -22,30 +22,21 @@
     "phoneNumber": {
       "type": "string",
       "minLength": 10,
-      "maxLength": 10
+      "maxLength": 10,
+      "required": true
     },
     "email": {
       "type": "email",
-      "required": true
-    },
-    "age": {
-      "type": "integer",
-      "min": 0,
-      "max": 200,
-      "required": true
+      "required": true,
+      "unique": true
     },
     "ailments": {
       "type": "text",
-      "required": true
+      "required": false
     },
     "medicines": {
       "type": "text",
-      "required": true,
-      "default": "None"
-    },
-    "enrolledDate": {
-      "type": "datetime",
-      "required": true
+      "required": false
     },
     "lastSession": {
       "type": "datetime"
@@ -58,6 +49,33 @@
       "collection": "doctor",
       "via": "patients",
       "dominant": true
+    },
+    "DOB": {
+      "type": "date",
+      "required": true
+    },
+    "sex": {
+      "type": "enumeration",
+      "enum": [
+        "M",
+        "F",
+        "O"
+      ],
+      "required": true
+    },
+    "height": {
+      "type": "decimal"
+    },
+    "weight": {
+      "type": "decimal"
+    },
+    "maritalStatus": {
+      "type": "enumeration",
+      "enum": [
+        "married",
+        "single"
+      ],
+      "required": true
     }
   }
 }
