@@ -50,8 +50,8 @@
     },
     {
       "method": "POST",
-      "path": "/patients/connect/:id",
-      "handler": "doctor.token",
+      "path": "/patients/connect/chat",
+      "handler": "patient.token",
       "config": {
         "policies": []
       }

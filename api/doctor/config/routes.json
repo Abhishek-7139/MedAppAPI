@@ -50,7 +50,7 @@
     },
     {
       "method": "POST",
-      "path": "/doctors/connect/:id",
+      "path": "/doctors/connect/chat",
       "handler": "doctor.token",
       "config": {
         "policies": []

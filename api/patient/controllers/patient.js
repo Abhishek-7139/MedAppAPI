@@ -1,4 +1,6 @@
-"use strict";
+const AccessToken = require("twilio").jwt.AccessToken;
+const VideoGrant = AccessToken.VideoGrant;
+("use strict");
 
 /**
  * Read the documentation (https://strapi.io/documentation/developer-docs/latest/concepts/controllers.html#core-controllers)
@@ -9,9 +11,12 @@ module.exports = {
   token(ctx) {
     try {
       const room = ctx.request.body.room;
+      if (!room) {
+        ctx.send({ message: "mention the name of the room" }, 400);
+      }
       // Used when generating any kind of Access Token
       const twilioAccountSid = process.env.TWILIO_ACCOUNT_SID;
-      const twilioApiKey = process.env.TWILIO_API_KEY;
+      const twilioApiKey = process.env.TWILIO_API_SID;
       const twilioApiSecret = process.env.TWILIO_API_SECRET;
 
       // Create an access token which we will sign and return to the client,
@@ -34,11 +39,11 @@ module.exports = {
 
       // Serialize the token to a JWT string
       const tokenString = token.toJwt();
-      console.log(tokenString);
+      // console.log(tokenString);
 
-      //Email the patient the room name.
-      return { token: tokenString, room: room };
+      return { token: tokenString };
     } catch (e) {
+      console.log(e);
       ctx.send({ message: "Internal Server Error" }, 500);
     }
   },
