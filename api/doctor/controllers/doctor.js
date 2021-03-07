@@ -2,6 +2,7 @@ const AccessToken = require("twilio").jwt.AccessToken;
 const VideoGrant = AccessToken.VideoGrant;
 const cryptoRandomString = require("crypto-random-string");
 const userVideoPage = "https://dummyurl.com";
+const nodemailer = require("nodemailer");
 
 ("use strict");
 
@@ -21,7 +22,9 @@ module.exports = {
           ctx.send({ message: "mention the id of the patient" }, 400);
         }
 
-        const patient = await strapi.services.patient.find({ id: patientID });
+        const patient = await strapi.services.patient.findOne({
+          id: patientID,
+        });
         const doctorObject = user.userObject[0].doctor;
 
         // Used when generating any kind of Access Token
@@ -51,24 +54,32 @@ module.exports = {
 
         // Serialize the token to a JWT string
         const tokenString = token.toJwt();
-
         //Send this room name in the email to the user.
         //`<link of the page where the user will get into the video chat>?room=${room}`
         //the page will use this query param to send a join request to this room.
-        // await strapi.plugins["email"].services.email.send({
-        //   to: patient.email,
-        //   from: "admin@strapi.io",
-        //   subject: "Link to join the online checkup session",
-        //   text: `
-        //     Hello, ${patient.firstName} ${patient.lastName}!
-        //     Dr. ${doctorObject.firstName} ${doctorObject.lastName} is ready and waiting for your session.
 
-        //     Click on the following link to join the session:
-        //     ${userVideoPage}?room=${room}
+        const transporter = nodemailer.createTransport({
+          service: "gmail",
+          auth: {
+            user: process.env.ADMIN_EMAIL,
+            pass: process.env.ADMIN_PASS,
+          },
+        });
+        const mailOptions = {
+          from: process.env.ADMIN_EMAIL,
+          to: patient.email,
+          subject: "Link to join the online checkup session",
+          text: `
+            Hello, ${patient.firstName} ${patient.lastName}!
+            Dr. ${doctorObject.firstName} ${doctorObject.lastName} is ready and waiting for your session.
 
-        //     Thank You!
-        //   `,
-        // });
+            Click on the following link to join the session:
+            ${userVideoPage}?room=${room}
+
+            Thank You!
+          `,
+        };
+        await transporter.sendMail(mailOptions);
         return { token: tokenString, room: room };
       } else {
         ctx.send({ message: "Unauthorized" }, 403);
