@@ -15,10 +15,6 @@
       "type": "text",
       "required": true
     },
-    "date": {
-      "type": "datetime",
-      "required": true
-    },
     "doctor": {
       "model": "doctor",
       "via": "reports"

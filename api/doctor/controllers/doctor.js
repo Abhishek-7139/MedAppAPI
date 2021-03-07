@@ -1,7 +1,7 @@
 const AccessToken = require("twilio").jwt.AccessToken;
 const VideoGrant = AccessToken.VideoGrant;
 const cryptoRandomString = require("crypto-random-string");
-const userVideoPage = "https://dummyurl.com";
+const userVideoPage = "https://med-app-nsut.netlify.app/connect/patient";
 const nodemailer = require("nodemailer");
 
 ("use strict");
@@ -25,6 +25,9 @@ module.exports = {
         const patient = await strapi.services.patient.findOne({
           id: patientID,
         });
+        if (!patient) {
+          ctx.send({ message: "Patient Doesn't Exist" }, 400);
+        }
         const doctorObject = user.userObject[0].doctor;
 
         // Used when generating any kind of Access Token
@@ -70,13 +73,12 @@ module.exports = {
           to: patient.email,
           subject: "Link to join the online checkup session",
           text: `
-            Hello, ${patient.firstName} ${patient.lastName}!
-            Dr. ${doctorObject.firstName} ${doctorObject.lastName} is ready and waiting for your session.
+Hello, ${patient.firstName} ${patient.lastName}!
+Dr. ${doctorObject.firstName} ${doctorObject.lastName} is ready and waiting for your session.
 
-            Click on the following link to join the session:
-            ${userVideoPage}?room=${room}
-
-            Thank You!
+Click on the following link to join the session:
+${userVideoPage}/${room}
+Thank You!
           `,
         };
         await transporter.sendMail(mailOptions);

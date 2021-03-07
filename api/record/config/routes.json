@@ -33,6 +33,14 @@
       }
     },
     {
+      "method": "POST",
+      "path": "/records/create",
+      "handler": "record.make",
+      "config": {
+        "policies": []
+      }
+    },
+    {
       "method": "PUT",
       "path": "/records/:id",
       "handler": "record.update",
