@@ -9,7 +9,7 @@ const { parseMultipartData, sanitizeEntity } = require("strapi-utils");
  */
 
 module.exports = {
-  token(ctx) {
+  async token(ctx) {
     try {
       const room = ctx.request.body.room;
       if (!room) {
@@ -19,6 +19,16 @@ module.exports = {
       const twilioAccountSid = process.env.TWILIO_ACCOUNT_SID;
       const twilioApiKey = process.env.TWILIO_API_SID;
       const twilioApiSecret = process.env.TWILIO_API_SECRET;
+      const twilioAuthToken = process.env.TWILIO_AUTH_TOKEN;
+
+      //UNCOMMENT THIS LATER-----------------------------------------
+      // const client = require("twilio")(twilioAccountSid, twilioAuthToken);
+      // const roomExists = await client.video.rooms(room).fetch();
+      // if (!roomExists) {
+      //   ctx.send({ message: "Room Doesn't Exist" }, 400);
+      //   return;
+      // }
+      //---------------------------------------------------------------
 
       // Create an access token which we will sign and return to the client,
       // containing the grant we just created
