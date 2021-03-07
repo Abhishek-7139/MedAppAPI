@@ -1,6 +1,7 @@
 const AccessToken = require("twilio").jwt.AccessToken;
 const VideoGrant = AccessToken.VideoGrant;
 ("use strict");
+const { parseMultipartData, sanitizeEntity } = require("strapi-utils");
 
 /**
  * Read the documentation (https://strapi.io/documentation/developer-docs/latest/concepts/controllers.html#core-controllers)
@@ -45,6 +46,38 @@ module.exports = {
     } catch (e) {
       console.log(e);
       ctx.send({ message: "Internal Server Error" }, 500);
+    }
+  },
+
+  async createPatient(ctx) {
+    try {
+      const doctorId = ctx.state.user.userObject[0].doctor.id;
+      let entity;
+      if (ctx.is("multipart")) {
+        const { data, files } = parseMultipartData(ctx);
+        entity = await strapi.services.patient.create(
+          { ...data, doctors: [doctorId] },
+          { files }
+        );
+      } else {
+        entity = await strapi.services.patient.create({
+          ...ctx.request.body,
+          doctors: [doctorId],
+        });
+      }
+      return sanitizeEntity(entity, { model: strapi.models.patient });
+    } catch (error) {
+      if (error.message === "Duplicate entry") {
+        ctx.status = 400;
+        ctx.body = {
+          fieldErrors: true,
+          fields: {
+            email: "duplicate email exists",
+          },
+        };
+        return;
+      }
+      ctx.status = 500;
     }
   },
 };

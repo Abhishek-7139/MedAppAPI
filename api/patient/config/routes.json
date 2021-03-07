@@ -55,6 +55,14 @@
       "config": {
         "policies": []
       }
+    },
+    {
+      "method": "POST",
+      "path": "/patients/create",
+      "handler": "patient.createPatient",
+      "config": {
+        "policies": []
+      }
     }
   ]
 }
