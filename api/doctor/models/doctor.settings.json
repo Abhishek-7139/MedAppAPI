@@ -23,6 +23,10 @@
       "type": "email",
       "required": true
     },
+    "hospital": {
+      "type": "string",
+      "required": true
+    },
     "address": {
       "type": "text"
     },
@@ -33,6 +37,10 @@
     "age": {
       "type": "integer",
       "min": 1
+    },
+    "dob": {
+      "type": "date",
+      "required": true
     },
     "department": {
       "type": "enumeration",
