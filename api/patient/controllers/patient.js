@@ -1,5 +1,6 @@
 const AccessToken = require("twilio").jwt.AccessToken;
 const VideoGrant = AccessToken.VideoGrant;
+const axios = require("axios");
 ("use strict");
 const { parseMultipartData, sanitizeEntity } = require("strapi-utils");
 
@@ -65,11 +66,21 @@ module.exports = {
       let entity;
       if (ctx.is("multipart")) {
         const { data, files } = parseMultipartData(ctx);
+        const des = data.ailments;
+        const queryString = `https://medical-nlp.herokuapp.com/process?query="${des}"&train=0`;
+        const { data: recommendations } = await axios.get(queryString);
+        data.recommendations = recommendations;
+
         entity = await strapi.services.patient.create(
           { ...data, doctors: [doctorId] },
           { files }
         );
       } else {
+        const des = ctx.request.body.ailments;
+        const queryString = `https://medical-nlp.herokuapp.com/process?query="${des}"&train=0`;
+        const { data: recommendations } = await axios.get(queryString);
+        ctx.request.body.recommendations = recommendations;
+
         entity = await strapi.services.patient.create({
           ...ctx.request.body,
           doctors: [doctorId],
@@ -77,6 +88,7 @@ module.exports = {
       }
       return sanitizeEntity(entity, { model: strapi.models.patient });
     } catch (error) {
+      console.log(error);
       if (error.message === "Duplicate entry") {
         ctx.status = 400;
         ctx.body = {

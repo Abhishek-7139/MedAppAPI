@@ -11,6 +11,7 @@
   },
   "devDependencies": {},
   "dependencies": {
+    "axios": "^0.21.1",
     "crypto-random-string": "^3.3.1",
     "nodemailer": "^6.5.0",
     "strapi": "3.5.2",

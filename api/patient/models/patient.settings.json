@@ -34,6 +34,10 @@
       "type": "text",
       "required": false
     },
+    "recommendations": {
+      "type": "array",
+      "required": false
+    },
     "medicines": {
       "type": "text",
       "required": false
@@ -56,11 +60,7 @@
     },
     "sex": {
       "type": "enumeration",
-      "enum": [
-        "M",
-        "F",
-        "O"
-      ],
+      "enum": ["M", "F", "O"],
       "required": true
     },
     "height": {
@@ -71,10 +71,7 @@
     },
     "maritalStatus": {
       "type": "enumeration",
-      "enum": [
-        "married",
-        "single"
-      ],
+      "enum": ["married", "single"],
       "required": true
     }
   }
