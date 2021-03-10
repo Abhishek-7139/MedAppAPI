@@ -1,4 +1,4 @@
-# MedAppAPI
+# 🚑 MedAppAPI
 
 ⚡ _Created as a [strapi](https://strapi.io/) project_
 
@@ -14,6 +14,6 @@ To use the MedApp go to the [Hosted Project](https://med-app-nsut.netlify.app/)
 
 If you want to see the frontend repository go to [Frontend Repository](https://github.com/VatD/MedApp)
 
-If you want to see the details of the cosine similarity based medical diagnosis feature go to [Medical Diagnosis](https://github.com/TheGupta2012/backend-MedicalDiagnosis)
+If you want to see the details of the medical diagnosis feature go to [Medical Diagnosis](https://github.com/TheGupta2012/backend-MedicalDiagnosis)
 
 For instructions on how to use the app take a look at this doc: [How to Use]()
