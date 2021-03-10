@@ -67,7 +67,7 @@ module.exports = {
       if (ctx.is("multipart")) {
         const { data, files } = parseMultipartData(ctx);
         const des = data.ailments;
-        const queryString = `https://medical-nlp.herokuapp.com/process?query="${des}"&train=0`;
+        const queryString = `https://medical-nlp.herokuapp.com/process?query=${des}&train=0`;
         const { data: recommendations } = await axios.get(queryString);
         data.recommendations = recommendations;
 
@@ -77,7 +77,7 @@ module.exports = {
         );
       } else {
         const des = ctx.request.body.ailments;
-        const queryString = `https://medical-nlp.herokuapp.com/process?query="${des}"&train=0`;
+        const queryString = `https://medical-nlp.herokuapp.com/process?query=${des}&train=0`;
         const { data: recommendations } = await axios.get(queryString);
         ctx.request.body.recommendations = recommendations;
 
