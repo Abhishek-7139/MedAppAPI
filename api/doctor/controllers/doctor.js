@@ -3,6 +3,7 @@ const VideoGrant = AccessToken.VideoGrant;
 const cryptoRandomString = require("crypto-random-string");
 const userVideoPage = "https://med-app-nsut.netlify.app/connect/patient";
 const nodemailer = require("nodemailer");
+const { google } = require("googleapis");
 
 ("use strict");
 
@@ -61,13 +62,29 @@ module.exports = {
         //`<link of the page where the user will get into the video chat>?room=${room}`
         //the page will use this query param to send a join request to this room.
 
+        const OAuth2 = google.auth.OAuth2;
+        const oauth2Client = new OAuth2(
+          process.env.CLIENT_ID,
+          process.env.CLIENT_SECRET,
+          process.env.REDIRECT_URL
+        );
+        oauth2Client.setCredentials({
+          refresh_token: process.env.REFRESH_TOKEN,
+        });
+        const accessToken = oauth2Client.getAccessToken();
+
         const transporter = nodemailer.createTransport({
           service: "gmail",
           auth: {
+            type: "OAuth2",
             user: process.env.ADMIN_EMAIL,
-            pass: process.env.ADMIN_PASS,
+            clientId: process.env.CLIENT_ID,
+            clientSecret: process.env.CLIENT_SECRET,
+            refreshToken: process.env.REFRESH_TOKEN,
+            accessToken: accessToken,
           },
         });
+
         const mailOptions = {
           from: process.env.ADMIN_EMAIL,
           to: patient.email,
