@@ -71,7 +71,7 @@ module.exports = {
         oauth2Client.setCredentials({
           refresh_token: process.env.REFRESH_TOKEN,
         });
-        const accessToken = oauth2Client.getAccessToken();
+        const accessToken = await oauth2Client.getAccessToken();
 
         const transporter = nodemailer.createTransport({
           service: "gmail",
